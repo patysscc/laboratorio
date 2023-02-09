@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Laboratorio</title>
+    <style>
+        body {
+            background-color: #242933;
+        }
+
+        .invalid {
+            color: black;
+            border-color: red;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 3px;
+            background-image: url("https://raw.githubusercontent.com/patysscc/laboratorio/main/error.png");
+            background-repeat: no-repeat;
+            background-size: 0.45cm;
+            background-position: 210px;
+            height: 22px;
+            width: 230px;
+        }
+
+        .valid {
+            color: black;
+            border-color: green;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 3px;
+            background-image: url("https://raw.githubusercontent.com/patysscc/laboratorio/main/success.png");
+            background-repeat: no-repeat;
+            background-size: 0.45cm;
+            background-position: 210px;
+            height: 22px;
+            width: 230px;
+        }
+
+        form {
+            width: 250px;
+            height: 500px;
+            margin: auto;
+            padding: 10px 32px;
+            background-color: #2e3543;
+            font-family: "Century Gothic";
+            font-size: 16px;
+            color: #dbe0f4ff;
+            border-width: 1px;
+            border-style: groove;
+            border-color: #80b5d1;
+        }
+
+        span {
+            color: #2e3543;
+        }
+
+        .noerror {
+            color: #2e3543;
+        }
+
+        span.error {
+            color: red;
+        }
+
+        input {
+            border-color: #80b5d1;
+            border-style: solid;
+            border-width: 2px;
+            border-radius: 4px;
+            color: black;
+            font-size: 16px;
+            width: 230px;
+        }
+
+        h1 {
+            font-size: 25px;
+        }
+
+        #nombre {
+            border-style: solid;
+            border-width: 2px;
+        }
+
+        #email {
+            border-style: solid;
+            border-width: 2px;
+        }
+
+        #Clave1 {
+            border-style: solid;
+            border-width: 2px;
+        }
+
+        #Clave2 {
+            border-style: solid;
+            border-width: 2px;
+        }
+
+        #myBtn {
+            background-color: #6c63ff;
+            font-family: "Century Gothic";
+            font-weight: bold;
+            font-size: 16px;
+            color: white;
+            height: 0.8cm;
+            width: 6.15cm;
+            border-width: 1px;
+            border-style: groove;
+            border-color: black;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<form id="formulario">
+    <h1>Create Account</h1>
+    <br/>
+    <label for="NOMBRE">Nombre</label>
+    <br/>
+    <input id="nombre" size="29" style="color: black" type="text"/>
+    <br/>
+    <span class="error" data-input="nombre"></span>
+    <br/>
+    <br/>
+    <label for="email">Email</label>
+    <br/>
+    <input id="email" size="29" style="color: black" type="email"/>
+    <br/>
+    <span class="error" data-input="email"></span>
+    <br/>
+    <br/>
+    <label for="clave1">Clave</label>
+    <br/>
+    <input
+            id="clave1"
+            maxlength="8"
+            size="29"
+            style="color: black"
+            type="password"
+    />
+    <br/>
+    <span class="error" data-input="clave1"></span>
+    <br/>
+    <br/>
+    <label for="clave2">Confirme su clave</label>
+    <br/>
+    <input
+            id="clave2"
+            maxlength="8"
+            size="29"
+            style="color: black"
+            type="password"
+    />
+    <br/>
+    <span class="error" data-input="clave2"></span>
+    <br/>
+    <br/>
+<br/>
+        <button id="myBtn">ENVIAR</button>
+</form>
+<script>
+  function validateLength(field, length) {
+    if (field.value.length > length) {
+      field.classList.add('valid');
+      field.classList.remove('invalid');
+      return true;
+    }
+    field.classList.add('invalid');
+    field.classList.remove('valid');
+    return false;
+  }
+
+  function setError(field, error) {
+    document.querySelector(
+      'span[data-input="' + field + '"]'
+    ).textContent = error;
+  }
+
+  document
+    .getElementById('nombre')
+    .addEventListener('keyup', function () {
+      if (!validateLength(this, 2)) {
+        setError('nombre', 'Rellene este campo');
+        return;
+      }
+      setError('nombre', '');
+    });
+  document.getElementById('email').addEventListener('keyup', function () {
+    if (!validateLength(this, 5)) {
+      setError('email', 'Rellene este campo');
+      return;
+    }
+    setError('email', '');
+  });
+  document.getElementById('clave1')
+    .addEventListener('keyup', function () {
+      if (!validateLength(this, 2)) {
+        setError('clave1', 'Rellene este campo');
+        return;
+      }
+      setError('clave1', '');
+    });
+document.getElementById('clave2')
+    .addEventListener('keyup', function () {
+      if (!validateLength(this, 2)) {
+        setError('clave2', 'Rellene este campo');
+        return;
+      }
+      setError('clave2', '');
+    });
+
+  function comprobar(event) {
+    event.preventDefault();
+    var clave1 = document.getElementById('clave1');
+    var clave2 = document.getElementById('clave2');
+    var nombre = document.getElementById('nombre');
+    var email = document.getElementById('email');
+    var error = false;
+    if (!validateLength(nombre, 2)) {
+      setError('nombre', 'Rellene este campo');
+      error = true;
+    }
+    if (!validateLength(email, 5)) {
+      setError('email', 'Rellene este campo');
+      error = true;
+    } else {
+      setError('email', '');
+    }
+    if (!validateLength(clave1, 2)) { 
+      setError('clave1', 'Rellene este campo');
+      error = true;
+    } else {
+      setError('clave1', '');
+    }
+    if (!validateLength(clave2, 2)) { 
+      setError('clave2', 'Rellene este campo');
+      error = true;
+    } else {
+      setError('clave2', '');
+    }
+    if (clave1.value !== clave2.value) {
+      setError('clave2', 'Las contraseñas no coinciden');
+      clave2.classList.add('invalid');
+      clave2.classList.remove('valid');
+      error = true;
+    } else {
+      setError('clave2', '');
+      clave2.classList.add('valid');
+      clave2.classList.remove('invalid');
+    }
+    if (!error) {
+      alert('Todo correcto');
+      console.log('Nombre:', nombre.value);
+      console.log('Email:', email.value);
+      console.log('Clave:', clave1.value);
+
+    }
+  }
+  document.getElementById('formulario').addEventListener('submit', comprobar);
+</script>
+</body>
+</html>
